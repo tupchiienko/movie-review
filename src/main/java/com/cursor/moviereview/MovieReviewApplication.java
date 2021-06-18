@@ -1,13 +1,13 @@
-package com.cursor.movierewiev;
+package com.cursor.moviereview;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MovieRewievApplication {
+public class MovieReviewApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MovieRewievApplication.class, args);
+        SpringApplication.run(MovieReviewApplication.class, args);
     }
 
 }

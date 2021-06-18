@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/movie_review_db
+    username: postgres
+    password: masterpass
