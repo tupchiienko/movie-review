@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Table(name = "movies")
 @Entity
@@ -18,20 +19,20 @@ public class Movie {
     @Column(nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private UUID id;
     private String name;
     private String description;
     private String photo;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "director_id")
     private Director director;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rate_id")
     private Rate rate;
 
-    @OneToMany(mappedBy = "movieId")
+    @OneToMany(mappedBy = "movieId", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Review> reviews;
 
