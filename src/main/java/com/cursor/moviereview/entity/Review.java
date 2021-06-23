@@ -1,8 +1,10 @@
 package com.cursor.moviereview.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -11,29 +13,37 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "uuid",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @GeneratedValue(generator = "uuid")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
-    private long movieId;
+    @Column(name = "message", nullable = false)
     private String message;
-    private long likes;
-    private long dislikes;
+    @Column(name = "likes")
+    @Size
+    private int likes;
+    @Column(name = "dislikes")
+    @Size
+    private int dislikes;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Review review = (Review) o;
-        return id == review.id && movieId == review.movieId && likes == review.likes &&
+        return id == review.id && likes == review.likes &&
                 dislikes == review.dislikes && Objects.equals(message, review.message);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, movieId, message, likes, dislikes);
+        return Objects.hash(id, message, likes, dislikes);
     }
 }

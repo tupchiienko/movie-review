@@ -16,9 +16,9 @@
     <properties>
         <java.version>16</java.version>
         <vaadin.version>14.6.3</vaadin.version>
+        <flyway.url>jdbc:postgresql://localhost:5432/movie_review_db</flyway.url>
         <flyway.user>postgres</flyway.user>
         <flyway.password>masterpass</flyway.password>
-        <flyway.schemas>movie_review_db</flyway.schemas>
         <flyway.version>7.10.0</flyway.version>
     </properties>
     <dependencies>
@@ -42,10 +42,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -75,13 +75,18 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>2.0.2</version>
+        </dependency>
         <!--<dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>-->
     </dependencies>
-    <dependencyManagement>
+    <!--<dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.vaadin</groupId>
@@ -91,7 +96,7 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement>-->
 
     <build>
         <plugins>
@@ -112,15 +117,16 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>${flyway.version}</version>
                 <configuration>
-                    <url>jdbc:postgresql://localhost:5432/movie_review_db</url>
-                    <user>postgres</user>
-                    <password>masterpass</password>
+                    <url>${flyway.url}</url>
+                    <user>${flyway.user}</user>
+                    <password>${flyway.password}</password>
                     <schemas>
-                        <schema>movie_review_db</schema>
+                        <schema>public</schema>
                     </schemas>
+                    <cleanDisabled>false</cleanDisabled>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
                 <version>${vaadin.version}</version>
@@ -137,7 +143,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 </project>

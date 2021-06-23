@@ -1,6 +1,7 @@
 package com.cursor.moviereview.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,29 +13,31 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 public class Movie {
 
-    @Column(nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "uuid",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @GeneratedValue(generator = "uuid")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "description", nullable = false)
     private String description;
+    @Column(name = "photo")
     private String photo;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "director_id")
     private Director director;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rate_id")
     private Rate rate;
-
-    @OneToMany(mappedBy = "movieId", cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private List<Review> reviews;
 
     @ManyToMany
     @JoinTable(
@@ -43,7 +46,16 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     @ToString.Exclude
-    private List<Category> category;
+    private List<Category> categories;
+
+    @OneToMany
+    @JoinTable(
+            name = "movies_reviews",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "review_id")
+    )
+    @ToString.Exclude
+    private List<Review> reviews;
 
     @Override
     public boolean equals(Object o) {
@@ -53,11 +65,11 @@ public class Movie {
         return id == movie.id && Objects.equals(name, movie.name) &&
                 Objects.equals(description, movie.description) &&
                 Objects.equals(photo, movie.photo) && Objects.equals(rate, movie.rate) &&
-                Objects.equals(reviews, movie.reviews) && Objects.equals(category, movie.category);
+                Objects.equals(reviews, movie.reviews) && Objects.equals(categories, movie.categories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, photo, rate, reviews, category);
+        return Objects.hash(id, name, description, photo, rate, reviews, categories);
     }
 }

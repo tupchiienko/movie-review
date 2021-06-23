@@ -1,6 +1,7 @@
 package com.cursor.moviereview.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -12,15 +13,21 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
 public class Rate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "uuid",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @GeneratedValue(generator = "uuid")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
     @Size(min = 1, max = 10)
-    private int value;
+    @Column(name = "value")
+    private float value;
+    @Column(name = "count")
     private long count;
 
     @Override

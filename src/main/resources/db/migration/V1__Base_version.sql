@@ -1,18 +1,18 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS directors(
-    id uuid primary key default uuid_generate_v1(),
+    id uuid primary key default uuid_generate_v4(),
     name varchar(64) not null
 );
 
 CREATE TABLE IF NOT EXISTS rates(
-    id uuid primary key default uuid_generate_v1(),
-    value int not null,
-    count bigint not null
+    id uuid primary key default uuid_generate_v4(),
+    value float not null,
+    count int not null
 );
 
 CREATE TABLE IF NOT EXISTS movies(
-    id uuid primary key default uuid_generate_v1(),
+    id uuid primary key default uuid_generate_v4(),
     name varchar(64) not null,
     description varchar(2048) not null,
     photo varchar(128) not null,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS movies(
 );
 
 CREATE TABLE IF NOT EXISTS categories(
-    id uuid primary key default uuid_generate_v1(),
+    id uuid primary key default uuid_generate_v4(),
     name varchar(64) not null
 );
 
@@ -36,11 +36,17 @@ CREATE TABLE IF NOT EXISTS movies_categories(
 );
 
 CREATE TABLE IF NOT EXISTS reviews(
-    id uuid primary key default uuid_generate_v1(),
-    movie_id uuid not null,
+    id uuid primary key default uuid_generate_v4(),
     message varchar(2048) not null,
-    likes bigint not null,
-    dislikes bigint not null,
-    constraint reviews_movie_id_fk foreign key (movie_id) references movies(id)
+    likes int not null,
+    dislikes int not null
+);
+
+CREATE TABLE IF NOT EXISTS movies_reviews(
+    id bigserial primary key not null,
+    movie_id uuid not null,
+    review_id uuid not null,
+    constraint movies_categories_movie_id_fk foreign key (movie_id) references movies(id),
+    constraint movies_reviews_review_id_fk foreign key (review_id) references reviews(id)
 );
 
