@@ -1,6 +1,9 @@
 package com.cursor.moviereview.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,9 +24,9 @@ public class Category {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @GeneratedValue(generator = "uuid")
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id")
     private UUID id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
     @Override

@@ -1,6 +1,9 @@
 package com.cursor.moviereview.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -30,22 +33,19 @@ public class Movie {
     private String description;
     @Column(name = "photo")
     private String photo;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "director_id")
-    private Director director;
+    @Column(name = "director_name", nullable = false)
+    private String directorName;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rate_id")
+    @JoinColumn(name = "rate_id", nullable = false)
     private Rate rate;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "movies_categories",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    @ToString.Exclude
     private List<Category> categories;
 
     @OneToMany
