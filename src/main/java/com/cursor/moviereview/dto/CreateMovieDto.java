@@ -1,5 +1,8 @@
 package com.cursor.moviereview.dto;
 
+import com.cursor.moviereview.annotation.validation.constraint.RateValueDigits;
+import com.cursor.moviereview.annotation.validation.constraint.RateValueInRange;
+import com.cursor.moviereview.annotation.validation.constraint.RateVotesPositiveOrZero;
 import com.cursor.moviereview.entity.Rate;
 import lombok.Data;
 
@@ -26,6 +29,9 @@ public class CreateMovieDto {
     private String directorName;
 
     @NotNull(message = "Rate is mandatory")
+    @RateVotesPositiveOrZero
+    @RateValueInRange(message = "Value out of bounds (from 0.0 to 10.0)")
+    @RateValueDigits(message = "Numeric value out of bounds (<2 digits>.<2 digits> expected)")
     private Rate rate;
 
     @NotEmpty(message = "Movie must have at list 1 category")
