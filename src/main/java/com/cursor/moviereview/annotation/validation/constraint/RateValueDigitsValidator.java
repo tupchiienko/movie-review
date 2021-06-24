@@ -4,7 +4,6 @@ import com.cursor.moviereview.entity.Rate;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.math.BigDecimal;
 
 public class RateValueDigitsValidator implements ConstraintValidator<RateValueDigits, Rate> {
 

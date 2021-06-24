@@ -6,7 +6,10 @@ import com.cursor.moviereview.annotation.validation.constraint.RateVotesPositive
 import com.cursor.moviereview.entity.Rate;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
 
