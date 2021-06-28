@@ -1,15 +1,9 @@
 package com.cursor.moviereview.dto;
 
-import com.cursor.moviereview.annotation.validation.constraint.RateValueDigits;
-import com.cursor.moviereview.annotation.validation.constraint.RateValueInRange;
-import com.cursor.moviereview.annotation.validation.constraint.RateVotesPositiveOrZero;
-import com.cursor.moviereview.entity.Rate;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,11 +25,14 @@ public class CreateMovieDto {
     @Size(max = 64, message = "Movie director name must be less than 64 characters")
     private String directorName;
 
-    @NotNull(message = "Rate is mandatory")
-    @RateVotesPositiveOrZero
-    @RateValueInRange(message = "Value out of bounds (from 0.0 to 10.0)")
-    @RateValueDigits(message = "Numeric value out of bounds (<2 digits>.<2 digits> expected)")
-    private Rate rate;
+    @NotNull(message = "rateValue is mandatory")
+    @DecimalMin(value = "1.0", message = "Rate must not be less than 1.0")
+    @DecimalMax(value = "10.0", message = "Rate must not be greater than 10.0")
+    @Digits(integer = 2, fraction = 2, message = "Numeric value out of bounds (<2 digits>.<2 digits> expected)")
+    private BigDecimal rateValue;
+
+    @PositiveOrZero(message = "Count must not be less than 0")
+    private long votesCount;
 
     @NotEmpty(message = "Movie must have at list 1 category")
     private List<UUID> categoriesId;
