@@ -16,16 +16,8 @@ import java.util.UUID;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Category {
+public class Category extends BaseEntity {
 
-    @Id
-    @GenericGenerator(
-            name = "uuid",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @GeneratedValue(generator = "uuid")
-    @Column(name = "id")
-    private UUID id;
     @Column(name = "name")
     private String name;
 

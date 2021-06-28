@@ -17,22 +17,17 @@ import java.util.UUID;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Movie {
+public class Movie extends BaseEntity {
 
-    @Id
-    @GenericGenerator(
-            name = "uuid",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @GeneratedValue(generator = "uuid")
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "description", nullable = false)
     private String description;
+
     @Column(name = "photo")
     private String photo;
+
     @Column(name = "director_name", nullable = false)
     private String directorName;
 

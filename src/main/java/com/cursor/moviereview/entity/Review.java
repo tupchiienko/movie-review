@@ -19,25 +19,15 @@ import java.util.UUID;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Review {
+public class Review extends BaseEntity {
 
-    @Id
-    @GenericGenerator(
-            name = "uuid",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @GeneratedValue(generator = "uuid")
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
     @Column(name = "message", nullable = false)
-    @NotBlank(message = "Review message is mandatory")
-    @Max(value = 2048, message = "Review message must be less than 2048 characters")
     private String message;
+
     @Column(name = "likes_count")
-    @PositiveOrZero(message = "Likes count must not be less than 0")
     private int likesCount;
+
     @Column(name = "dislikes_count")
-    @PositiveOrZero(message = "Dislikes count must not be less than 0")
     private int dislikesCount;
 
     @Override

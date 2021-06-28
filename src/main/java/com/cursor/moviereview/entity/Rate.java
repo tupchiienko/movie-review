@@ -21,24 +21,11 @@ import java.util.UUID;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Rate {
-
-    @Id
-    @GenericGenerator(
-            name = "uuid",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @GeneratedValue(generator = "uuid")
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+public class Rate extends BaseEntity {
 
     @Column(name = "value", nullable = false, precision = 2, scale = 2)
-    @DecimalMin(value = "1.0", message = "Rate must not be less than 1.0")
-    @DecimalMax(value = "10.0", message = "Rate must not be greater than 10.0")
-    @Digits(integer = 2, fraction = 2, message = "Numeric value out of bounds (<2 digits>.<2 digits> expected)")
     private BigDecimal value;
 
-    @PositiveOrZero(message = "Count must not be less than 0")
     @Column(name = "votes_count", nullable = false)
     private long votesCount;
 
