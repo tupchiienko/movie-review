@@ -15,7 +15,7 @@
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>16</java.version>
-        <flyway.url>jdbc:postgresql://localhost:5432/movie_review_db</flyway.url>
+        <flyway.url>jdbc:postgresql://localhost:49153/movie_review_db</flyway.url>
         <flyway.user>postgres</flyway.user>
         <flyway.password>masterpass</flyway.password>
         <flyway.version>7.10.0</flyway.version>
@@ -44,6 +44,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.2</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>

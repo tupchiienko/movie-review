@@ -2,6 +2,7 @@ package com.cursor.moviereview.service.impl;
 
 import com.cursor.moviereview.dto.CreateMovieDto;
 import com.cursor.moviereview.entity.Movie;
+import com.cursor.moviereview.entity.Rate;
 import com.cursor.moviereview.repository.MovieRepo;
 import com.cursor.moviereview.service.CategoryService;
 import com.cursor.moviereview.service.MovieService;
@@ -19,11 +20,14 @@ public class MovieServiceImpl implements MovieService {
     public Movie create(CreateMovieDto movieDto) {
         var movie = new Movie();
         var categories = categoryService.findAllById(movieDto.getCategoriesId());
+        var rate = new Rate();
+        rate.setValue(movieDto.getRateValue());
+        rate.setVotesCount(movieDto.getVotesCount());
         movie.setName(movieDto.getName());
         movie.setDescription(movieDto.getDescription());
         movie.setPhoto(movieDto.getPhoto());
         movie.setDirectorName("John Doe");
-        movie.setRate(movieDto.getRate());
+        movie.setRate(rate);
         movie.setCategories(categories);
         return movieRepo.save(movie);
     }

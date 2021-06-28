@@ -1,5 +1,6 @@
 package com.cursor.moviereview.service;
 
+import com.cursor.moviereview.dto.CategoryDto;
 import com.cursor.moviereview.entity.Category;
 
 import java.util.List;
@@ -9,6 +10,6 @@ public interface CategoryService {
 
     List<Category> findAllById(List<UUID> ids);
 
-    Category create(Category category);
+    Category create(CategoryDto categoryDto);
 
 }
