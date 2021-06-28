@@ -7,6 +7,7 @@ import com.cursor.moviereview.repository.MovieRepo;
 import com.cursor.moviereview.service.CategoryService;
 import com.cursor.moviereview.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,15 +20,9 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie create(CreateMovieDto movieDto) {
         var movie = new Movie();
+        final ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(movieDto, movie);
         var categories = categoryService.findAllById(movieDto.getCategoriesId());
-        var rate = new Rate();
-        rate.setValue(movieDto.getRateValue());
-        rate.setVotesCount(movieDto.getVotesCount());
-        movie.setName(movieDto.getName());
-        movie.setDescription(movieDto.getDescription());
-        movie.setPhoto(movieDto.getPhoto());
-        movie.setDirectorName("John Doe");
-        movie.setRate(rate);
         movie.setCategories(categories);
         return movieRepo.save(movie);
     }

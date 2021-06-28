@@ -26,12 +26,12 @@ public class CreateMovieDto {
     private String directorName;
 
     @NotNull(message = "rateValue is mandatory")
-    @DecimalMin(value = "1.0", message = "Rate must not be less than 1.0")
-    @DecimalMax(value = "10.0", message = "Rate must not be greater than 10.0")
+    @DecimalMin(value = "1.0", message = "Rate value must not be less than 1.0")
+    @DecimalMax(value = "10.0", message = "Rate value must not be greater than 10.0")
     @Digits(integer = 2, fraction = 2, message = "Numeric value out of bounds (<2 digits>.<2 digits> expected)")
     private BigDecimal rateValue;
 
-    @PositiveOrZero(message = "Count must not be less than 0")
+    @PositiveOrZero(message = "Votes count must not be less than 0")
     private long votesCount;
 
     @NotEmpty(message = "Movie must have at list 1 category")

@@ -19,6 +19,8 @@
         <flyway.user>postgres</flyway.user>
         <flyway.password>masterpass</flyway.password>
         <flyway.version>7.10.0</flyway.version>
+        <modelmapper.version>2.4.4</modelmapper.version>
+        <springdoc.version>1.5.2</springdoc.version>
     </properties>
     <dependencies>
         <dependency>
@@ -48,7 +50,12 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.2</version>
+            <version>${springdoc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
