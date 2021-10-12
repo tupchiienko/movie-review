@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class CreateMovieDto {
+public class MovieDto {
 
     @NotBlank(message = "Movie name is mandatory")
     @Size(max = 64, message = "Movie description must be less than 64 characters")

@@ -5,7 +5,7 @@ import com.cursor.moviereview.entity.Category;
 import com.cursor.moviereview.repository.CategoryRepo;
 import com.cursor.moviereview.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +25,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category create(CategoryDto categoryDto) {
         var category = new Category();
-        category.setName(categoryDto.getName());
+        final ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(categoryDto, category);
         return categoryRepo.save(category);
     }
 }

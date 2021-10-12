@@ -1,6 +1,6 @@
 package com.cursor.moviereview.controller;
 
-import com.cursor.moviereview.dto.CreateMovieDto;
+import com.cursor.moviereview.dto.MovieDto;
 import com.cursor.moviereview.entity.Movie;
 import com.cursor.moviereview.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class MovieController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Movie> addNewMovie(@Valid @RequestBody CreateMovieDto movieDto) {
+    public ResponseEntity<Movie> addNewMovie(@Valid @RequestBody MovieDto movieDto) {
         var movie = movieService.create(movieDto);
         return ResponseEntity.ok(movie);
     }
